@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { fetchDepartments } from "../../../utils/EmployeeHelper";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { Loader, ArrowLeft, Upload, User, Mail, Building2, Calendar, Phone, MapPin, Briefcase, Users } from "lucide-react";
+import { Loader, ArrowLeft, Upload } from "lucide-react";
 import toast from "react-hot-toast";
 
 const FormField = ({ label, children, required }) => (
