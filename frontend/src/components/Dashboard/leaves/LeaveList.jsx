@@ -25,7 +25,7 @@ const LeaveList = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-
+ 
       if (response.data.success) {
         let sno = 1;
         const data = response.data.leaves.map((leave) => ({

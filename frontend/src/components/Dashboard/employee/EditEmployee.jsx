@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { fetchDepartments } from "../../../utils/EmployeeHelper";
 import axios from "axios";

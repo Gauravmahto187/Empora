@@ -48,7 +48,7 @@ const AddEmployee = () => {
     if (name === "image") {
       const file = files[0];
       setFormData((prevData) => ({ ...prevData, [name]: file }));
-      
+
       // Create image preview
       if (file) {
         const reader = new FileReader();
@@ -77,21 +77,23 @@ const AddEmployee = () => {
     try {
       // Validate required fields
       const requiredFields = [
-        'name',
-        'email',
-        'employeeId',
-        'dob',
-        'gender',
-        'maritalStatus',
-        'designation',
-        'department',
-        'salary',
-        'password'
+        "name",
+        "email",
+        "employeeId",
+        "dob",
+        "gender",
+        "maritalStatus",
+        "designation",
+        "department",
+        "salary",
+        "password",
       ];
 
-      const missingFields = requiredFields.filter(field => !formData[field]);
+      const missingFields = requiredFields.filter((field) => !formData[field]);
       if (missingFields.length > 0) {
-        toast.error(`Please fill in all required fields: ${missingFields.join(', ')}`);
+        toast.error(
+          `Please fill in all required fields: ${missingFields.join(", ")}`
+        );
         setIsSubmitting(false);
         return;
       }
@@ -101,12 +103,12 @@ const AddEmployee = () => {
       }
 
       const formDataObj = new FormData();
-      
+
       // Append all form fields
       Object.keys(formData).forEach((key) => {
-        if (key === 'image') {
+        if (key === "image") {
           if (formData[key]) {
-            formDataObj.append('image', formData[key]);
+            formDataObj.append("image", formData[key]);
           }
         } else {
           formDataObj.append(key, formData[key]);
@@ -118,20 +120,27 @@ const AddEmployee = () => {
         throw new Error("Environment variable VITE_EMPORA_LINK is not set.");
       }
 
-      const response = await axios.post(`${baseURL}/api/employee/add`, formDataObj, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post(
+        `${baseURL}/api/employee/add`,
+        formDataObj,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (response.data.success) {
         toast.success("Employee added successfully!");
         navigate("/admin-dashboard/employees");
       }
     } catch (error) {
-      console.error('Error details:', error.response?.data);
-      const errorMessage = error.response?.data?.error || error.response?.data?.message || "Failed to add employee";
+      console.error("Error details:", error.response?.data);
+      const errorMessage =
+        error.response?.data?.error ||
+        error.response?.data?.message ||
+        "Failed to add employee";
       toast.error(errorMessage);
     } finally {
       toast.dismiss(loadingToast);
@@ -144,8 +153,12 @@ const AddEmployee = () => {
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Add New Employee</h2>
-            <p className="mt-1 text-sm text-gray-600">Add a new employee to your organization</p>
+            <h2 className="text-2xl font-bold text-gray-900">
+              Add New Employee
+            </h2>
+            <p className="mt-1 text-sm text-gray-600">
+              Add a new employee to your organization
+            </p>
           </div>
           <Link
             to="/admin-dashboard/employees"
@@ -163,7 +176,11 @@ const AddEmployee = () => {
               <div className="relative">
                 <div className="w-32 h-32 rounded-full border-2 border-gray-200 flex items-center justify-center overflow-hidden bg-gray-50">
                   {imagePreview ? (
-                    <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      className="w-full h-full object-cover"
+                    />
                   ) : (
                     <Upload className="w-8 h-8 text-gray-400" />
                   )}
@@ -184,7 +201,9 @@ const AddEmployee = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Personal Information */}
               <div className="space-y-4">
-                <h3 className="font-medium text-gray-900">Personal Information</h3>
+                <h3 className="font-medium text-gray-900">
+                  Personal Information
+                </h3>
                 <FormField label="Name" required>
                   <input
                     type="text"
@@ -247,7 +266,9 @@ const AddEmployee = () => {
 
               {/* Employment Information */}
               <div className="space-y-4">
-                <h3 className="font-medium text-gray-900">Employment Information</h3>
+                <h3 className="font-medium text-gray-900">
+                  Employment Information
+                </h3>
                 <FormField label="Employee ID" required>
                   <input
                     type="text"
