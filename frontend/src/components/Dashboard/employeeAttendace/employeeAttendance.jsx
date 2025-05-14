@@ -25,13 +25,17 @@ const EmployeeAttendance = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["employeeAttendance", filters, page],
     queryFn: async () => {
+      const baseURL = import.meta.env.VITE_EMPORA_LINK;
+      if (!baseURL) {
+        throw new Error("Environment variable VITE_EMPORA_LINK is not set.");
+      }
       const params = { ...filters, page, limit };
 
       if (!filters.startDate) delete params.startDate;
       if (!filters.endDate) delete params.endDate;
 
       const res = await axios.get(
-        `http://localhost:3000/api/attendance/empattendance/${id}`,
+        `${baseURL}/api/attendance/empattendance/${id}`,
         {
           params,
         }

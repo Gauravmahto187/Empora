@@ -10,13 +10,17 @@ const AuthContext = ({ children }) => {
 
   useEffect(() => {
     const verifyUser = async () => {
+      const baseURL = import.meta.env.VITE_EMPORA_LINK;
+      if (!baseURL) {
+        throw new Error("Environment variable VITE_EMPORA_LINK is not set.");
+      }
       try {
         const token = localStorage.getItem("token");
         if (token) {
           const response = await axios.get(
-            "http://localhost:3000/api/auth/verify",
+            `${baseURL}/api/auth/verify`,
             {
-              headers: {
+              headers: { 
                 "Authorization": `Bearer ${token}`,
               },
             }

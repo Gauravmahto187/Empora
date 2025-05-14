@@ -13,12 +13,20 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const baseURL = import.meta.env.VITE_EMPORA_LINK;
+      if (!baseURL) {
+        throw new Error("Environment variable VITE_EMPORA_LINK is not set.");
+      }
+
   const handleSubmit = async (e) => {
+
     e.preventDefault();
     setIsLoading(true);
     
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/login", { email, password });
+      const response = await axios.post(
+        `${baseURL}/api/auth/login`,
+        { email, password });
       if (response.data.success) {
         const userData = response.data.user;
         // Ensure roles is always an array

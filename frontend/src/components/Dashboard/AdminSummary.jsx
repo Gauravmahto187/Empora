@@ -20,8 +20,12 @@ const AdminSummary = () => {
   useEffect(() => {
     const fetchSummary = async () => {
       try {
+        const baseURL = import.meta.env.VITE_EMPORA_LINK;
+      if (!baseURL) {
+        throw new Error("Environment variable VITE_EMPORA_LINK is not set.");
+      }
         const summary = await axios.get(
-          "http://localhost:3000/api/dashboard/summary",
+          `${baseURL}/api/dashboard/summary`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

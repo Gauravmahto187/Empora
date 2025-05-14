@@ -12,8 +12,14 @@ const NoticeList = () => {
 
   useEffect(() => {
     const fetchNotices = async () => {
+      const baseURL = import.meta.env.VITE_EMPORA_LINK;
+      if (!baseURL) {
+        throw new Error("Environment variable VITE_EMPORA_LINK is not set.");
+      }
       try {
-        const response = await axios.get("http://localhost:3000/api/notice", {
+        const response = await axios.get(
+          `${baseURL}/api/notice`,
+          {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

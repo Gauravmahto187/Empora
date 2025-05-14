@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../../context/authContext";
@@ -70,8 +71,12 @@ const SettingList = () => {
     }
 
     try {
+      const baseURL = import.meta.env.VITE_EMPORA_LINK;
+      if (!baseURL) {
+        throw new Error("Environment variable VITE_EMPORA_LINK is not set.");
+      }
       const response = await axios.put(
-        "http://localhost:3000/api/setting/change-password",
+        `${baseURL}/api/setting/change-password`,
         setting,
         {
           headers: {

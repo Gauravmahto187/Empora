@@ -73,7 +73,7 @@ const EmployeeList = () => {
           name: emp.userId.name,
           role: emp.userId.role,
           dob: new Date(emp.dob).toLocaleDateString(),
-          profileImage: <img width={40} className="rounded-full object-cover shadow-sm border border-gray-200" src={`http://localhost:3000/${emp.userId.profileImage}`} alt={emp.userId.name} />,
+          profileImage: <img width={40} className="rounded-full object-cover shadow-sm border border-gray-200" src={`${baseURL}/${emp.userId.profileImage}`} alt={emp.userId.name} />,
           action: (<EmployeeButtons Id={emp._id} onDelete={fetchEmployees} />),
         }));
         setEmployees(data);
